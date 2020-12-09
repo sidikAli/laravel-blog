@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+// use Illuminate\Support\Facades\Auth;
 use App\User;
+use App\Posts;
+use Auth;
 
 class UserController extends Controller
 {
@@ -115,8 +118,18 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        if ($id == Auth::id()) {
+            return redirect()->route('user.index')->with('success', 'Tidak Dapat Hapus Akun Sendiri');
+        }
+
+        // jika punya post ganti user_id
+        $posts = Posts::where('user_id', $id)->count();
+        if ($posts) {
+            Posts::where('user_id', $id)->update(['user_id' => Auth::id()]);
+        }
+
         $user = User::find($id);
         $user->delete();
-        return redirect()->route('user.index')->with('success', 'User Berhasil Diedit');
+        return redirect()->route('user.index')->with('success', 'User Berhasil Dihapus');
     }
 }

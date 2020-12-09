@@ -22,7 +22,9 @@
             @foreach($posts as $post)
             <div class="single-recent-blog-post">
               <div class="thumb">
-                <img class="img-fluid img-thumbnail" src="{{ $post->gambar }}" alt="" style="">
+                <a href="{{ route('blog.page', $post->slug)  }}">
+                  <img class="img-fluid img-thumbnail" src="{{ $post->gambar }}" alt="" style="">
+                </a>
                 <ul class="thumb-info">
                   <li><a href="#"><i class="ti-user"></i>{{ $post->user->name }}</a></li>
                   <li><a href="#"><i class="ti-notepad"></i>{{ $post->created_at->toDateString() }}</a></li>
@@ -34,8 +36,8 @@
                   <h3>{{ $post->judul }}</h3>
                 </a>
                 <p class="tag-list-inline">Tag: @foreach($post->tags as $tag) <span class="badge badge-warning">{{$tag->name}}</span> @endforeach</p>
-                <p>{{substr($post->content, 0, 20)}} ..... </p>
-                <a class="button" href="{{ route('blog.page', $post->slug)  }}">Read More <i class="ti-arrow-right"></i></a>
+                {{-- <p>{{substr($post->content, 0, 250)}} ..... </p> --}}
+                <a class="button" href="{{ route('blog.page', $post->slug)  }}">Read <i class="ti-arrow-right"></i></a>
               </div>
             </div>
             @endforeach
