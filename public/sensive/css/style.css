@@ -7,3 +7,11 @@
 .h_logo span{
 	color: #ff9907;
 }
+
+@media (max-width: 992px) {
+
+.box_1620 .h_logo{
+	color: white;
+}
+
+}
